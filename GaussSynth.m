@@ -1,7 +1,7 @@
 (* ::Package:: *)
 
 (* ::Title:: *)
-(*GuassSynth.m -- The Two-Qubit Clifford + CS Circuit Synthesis Package*)
+(*GaussSynth.m -- The Two-Qubit Clifford + CS Circuit Synthesis Package*)
 
 
 (* ::Subtitle:: *)
@@ -56,7 +56,7 @@ BeginPackage["GaussSynth`"];
 
 
 (* ::Section:: *)
-(*Function Usage*)
+(*\[AliasDelimiter]\[AliasDelimiter]\[AliasDelimiter]Function Usage*)
 
 
 GaussSynth::usage = "GaussSynth is a package for quantum compiling for two-qubit circuits using the Clifford + CS gate set";
@@ -77,85 +77,87 @@ CNOT21::usage = "CNOT21 is the unitary representation of the CNOT gate with cont
 EX::usage = "EX is the unitary representation of the SWAP (Exchange) gate.";
 CS::usage = "CS is the unitary representation of the CS gate.";
 
-U4ToSO6::usage = "U4ToSO6[U] maps the 4x4 unitary U to the equivalent SO(6) representation for the operator U' = \!\(\*SuperscriptBox[\(e\), \(i\[Phi]\)]\) U for some phase \[CurlyPhi] and U' an element of SU(4).";
+U4ToSO6::usage = "U4ToSO6[U] maps the 4x4 unitary U to the equivalent SO(6) representation for the operator U' = \!\(\*SuperscriptBox[\(e\), \(i\[Phi]\)]\) U \
+	for some phase \[CurlyPhi] and U' an element of SU(4).";
 
 IdSO6::usage = "Id is the 6x6 Identity Matrix.";
 X1SO6::usage = "X1SO6 is the SO(6) representation of the X\[CircleTimes]I gate.";
 X2SO6::usage = "X2SO6 is the SO(6) representation of the I\[CircleTimes]X gate.";
 Z1SO6::usage = "Z1SO6 is the SO(6) representation of the Z\[CircleTimes]I gate.";
 Z2SO6::usage = "Z2SO6 is the SO(6) representation of the I\[CircleTimes]Z gate.";
-\[CapitalIota]SO6::usage = "\[CapitalIota]SO6 is the SO(6) representation of the complex phase I. As SU(4) is a double cover of SO(6), 
+\[CapitalIota]SO6::usage = "\[CapitalIota]SO6 is the SO(6) representation of the complex phase I. As SU(4) is a double cover of SO(6), \
 	we have \!\(\*SuperscriptBox[\(\[CapitalIota]SO6\), \(2\)]\) = IdSO6.";
 H1SO6::usage = "H1SO6 is the SO(6) representation of the H\[CircleTimes]I gate.";
 H2SO6::usage = "H2SO6 is the SO(6) representation of the I\[CircleTimes]H gate.";
 S1SO6::usage = "S1SO6 is the SO(6) representation of the S\[CircleTimes]I gate.";
 S2SO6::usage = "S2SO6 is the SO(6) representation of the I\[CircleTimes]S gate.";
-CZSO6::usage = "CZSO6 is the SO(6) representation of the CZ gate. Note that this gate is not special unitary, and so we multiply 
+CZSO6::usage = "CZSO6 is the SO(6) representation of the CZ gate. Note that this gate is not special unitary, and so we multiply \
 	by a primitive 8th root of unity \!\(\*SuperscriptBox[\(\[Omega]\), \(\[Dagger]\)]\) before performing the transformation.";
-CNOT12SO6::usage = "CNOT12SO6 is the SO(6) representation of the CNOT gate with control qubit 1 and target qubit 2. 
-	Note that this gate is not special unitary, and so we multiply by a primitive 8th root of unity \!\(\*SuperscriptBox[\(\[Omega]\), \(\[Dagger]\)]\) 
+CNOT12SO6::usage = "CNOT12SO6 is the SO(6) representation of the CNOT gate with control qubit 1 and target qubit 2. \
+	Note that this gate is not special unitary, and so we multiply by a primitive 8th root of unity \!\(\*SuperscriptBox[\(\[Omega]\), \(\[Dagger]\)]\) \
 	before performing the transformation.";
-CNOT21SO6::usage = "CNOT21SO6 is the SO(6) representation of the CNOT gate with control qubit 2 and target qubit 1. 
-	Note that this gate is not special unitary, and so we multiply by aa primitive 8th root of unity \!\(\*SuperscriptBox[\(\[Omega]\), \(\[Dagger]\)]\) 
+CNOT21SO6::usage = "CNOT21SO6 is the SO(6) representation of the CNOT gate with control qubit 2 and target qubit 1. \
+	Note that this gate is not special unitary, and so we multiply by aa primitive 8th root of unity \!\(\*SuperscriptBox[\(\[Omega]\), \(\[Dagger]\)]\) \
 	before performing the transformation.";
-EXSO6::usage = "EXSO6 is the SO(6) representation of the SWAP (Exchange) gate. Note that this gate is not special unitary, 
+EXSO6::usage = "EXSO6 is the SO(6) representation of the SWAP (Exchange) gate. Note that this gate is not special unitary, \
 	and so we multiply by a primitive 8th root of unity \!\(\*SuperscriptBox[\(\[Omega]\), \(\[Dagger]\)]\) before performing the transformation.";
-CSSO6::usage = "CSSO6 is the SO(6) representation of the CS gate. Note that this gate is not special unitary, and so we multiply by 
+CSSO6::usage = "CSSO6 is the SO(6) representation of the CS gate. Note that this gate is not special unitary, and so we multiply by \
 	a primitive 16th root of unity \!\(\*SuperscriptBox[\(\[Omega]\), \(\(-1\)/2\)]\) before performing the transformation.";
 
 FromSequence::usage = "FromSequnce[str] reads in the string str and interprets that string as a Clifford + CS operator in the U(4) representation.";
 
-FromHexDec::usage = "FromHexDec[str] attempts to read in a string of a signed hexadecimal number as a Clifford + CS operator in the U(4) representation. 
-	The sign indicates whether the operator corresponds to using symmetric or asymmetric syllables. The list of syllables takes hexadecimal values 1-f for
+FromHexDec::usage = "FromHexDec[str] attempts to read in a string of a signed hexadecimal number as a Clifford + CS operator in the U(4) representation. \
+	The sign indicates whether the operator corresponds to using symmetric or asymmetric syllables. The list of syllables takes hexadecimal values 1-f for \
 	the fifteen unique syllables. After the syllables comes the marker 00000 which is followed by a hexidcimal integer which take the decimal values 1-92160.";
 
 CliffordQ::usage = "CliffordQ[U] returns True if U is a Clifford and False otherwise.";
-CliffordSynth::usage = "CliffordSynth[U] gives the index number (in Hexidecimal) and string of Clifford and Pauli operators 
+CliffordSynth::usage = "CliffordSynth[U] gives the index number (in Hexidecimal) and string of Clifford and Pauli operators \
 	which constitute the Clifford which can be input as a string, an element of U(4), an element of SO(6), or a hexidcimal representation";
 RightCliffordSimilar::usage = "CliffordSimilarRight[U,V] Returns True if there is a Clifford C such that U.C = V and False otherwise.";
 LeftCliffordSimilar::usage = "CliffordSimilarLeft[U,V] Returns True if there is a Clifford C such that C.U = V and False otherwise.";
 
 GaussianQ::usage = "GaussianQ[U] is a Boolean function which checks if U corresponds to a Clifford + CS circuit.";
 
-SyllableList::usage = "A list of 15 syllables of CS-count one which are not right-Clifford similar. Each syllable is a 
-	Clifford C which conjugates CS as C.CS.\!\(\*SuperscriptBox[\(C\), \(\[Dagger]\)]\). For each syllable, we supply the operator's
-	 4x4 Unitary representation, the operator's 6x6 SO(6) representation, and its name according to the generators in string form.";
-SyllableListAsymmetric::usage = "An alternative list of 15 syllables of CS-count one which are not right-Clifford similar. 
-	Each syllable is equivalent to C.CS for C a Clifford. For each syllable, we supply the operator's 4x4 Unitary representation, 
+SyllableList::usage = "A list of 15 syllables of CS-count one which are not right-Clifford similar. Each syllable is a \
+	Clifford C which conjugates CS as C.CS.\!\(\*SuperscriptBox[\(C\), \(\[Dagger]\)]\). For each syllable, we supply the operator's \
+	4x4 Unitary representation, the operator's 6x6 SO(6) representation, and its name according to the generators in string form.";
+SyllableListAsymmetric::usage = "An alternative list of 15 syllables of CS-count one which are not right-Clifford similar. \
+	Each syllable is equivalent to C.CS for C a Clifford. For each syllable, we supply the operator's 4x4 Unitary representation, \
 	the operator's 6x6 SO(6) representation, and its name according to the generators in string form.";
 
-NormIt::usage = "NormIt[U,options] takes as input a Gaussian Clifford + T operator U and outputs its equivalent normal form. 
-	This normal form is output as a string of generators using the standard syllable list unless specified otherwise in the options. 
-	The options for the \"OutputType\" are \"String\" or \"HexDec\", the options for the \"SyllableType\" are \"Normal\" or \"Asymmetric\", 
-	and the options for \"UpToPhase\" are the booleans True and False. When either reading or outputting a string of generators, we use (only) the 
-	following characters: \"W\", \"S1\", \"S2\", \"H1\", \"H2\", \"CZ\", \"EX\", \"X1\", \"X2\", \"Z1\", \"Z2\", \"CS\" where \"W\" is the phase \[Omega], 
+NormIt::usage = "NormIt[U,options] takes as input a Gaussian Clifford + T operator U and outputs its equivalent normal form. \
+	This normal form is output as a string of generators using the standard syllable list unless specified otherwise in the options. \
+	The options for the \"OutputType\" are \"String\" or \"HexDec\", the options for the \"SyllableType\" are \"Normal\" or \"Asymmetric\", \
+	and the options for \"UpToPhase\" are the booleans True and False. When either reading or outputting a string of generators, we use (only) the \
+	following characters: \"W\", \"S1\", \"S2\", \"H1\", \"H2\", \"CZ\", \"EX\", \"X1\", \"X2\", \"Z1\", \"Z2\", \"CS\" where \"W\" is the phase \[Omega], \
 	\"S1\" is the gate S1, and so on.";
 
 FrobeniusDistance::usage = "FrobeniusDistance[U,V] computes the distance between U and V via the Frobenius Matrix Norm.";
 
-PauliRotation::usage = "PauliRotation[\[CurlyPhi],\[Epsilon],Pauli] finds a unitary Gaussian Clifford + T operator which is within Frobenius Distance \[Epsilon] 
-	of the Pauli rotation \!\(\*SuperscriptBox[\(e\), \(\(-i\[CurlyPhi]\)/2\\\ P\)]\) for the pauli matrix P which is specified by the string Pauli. 
-	The Pauli can be one of the fifteen strings \"XI\", \"YI\", \"ZI\", \"IX\", \"IY\", \"IZ\", \"XX\", \"YX\", \"ZX\", \"XY\", \"YY\", \"ZY\", 
+PauliRotation::usage = "PauliRotation[\[CurlyPhi],\[Epsilon],Pauli] finds a unitary Gaussian Clifford + T operator which is within Frobenius Distance \[Epsilon] \
+	of the Pauli rotation \!\(\*SuperscriptBox[\(e\), \(\(-i\[CurlyPhi]\)/2\\\ P\)]\) for the pauli matrix P which is specified by the string Pauli. \
+	The Pauli can be one of the fifteen strings \"XI\", \"YI\", \"ZI\", \"IX\", \"IY\", \"IZ\", \"XX\", \"YX\", \"ZX\", \"XY\", \"YY\", \"ZY\", \
 	\"XZ\", \"YZ\", or \"ZZ\".";
-PauliRotationSequence::usage = "PauliRotationSequence[\[CurlyPhi],\[Epsilon],Pauli,options] finds a unitary Gaussian Clifford + T operator which is within Frobenius Distance \[Epsilon] 
-	of the Pauli rotation \!\(\*SuperscriptBox[\(e\), \(\(-i\[CurlyPhi]\)/2\\\ P\)]\) for the pauli matrix P which is specified by the string Pauli. 
-	The Pauli can be one of the fifteen strings \"XI\", \"YI\", \"ZI\", \"IX\", \"IY\", \"IZ\", \"XX\", \"YX\", \"ZX\", \"XY\", \"YY\", \"ZY\", 
-	\"XZ\", \"YZ\", or \"ZZ\". It then outputs a normalized sequence of Clifford + CS operators via NormIt. The options for the \"OutputType\" are 
+PauliRotationSequence::usage = "PauliRotationSequence[\[CurlyPhi],\[Epsilon],Pauli,options] finds a unitary Gaussian Clifford + T operator which is within Frobenius Distance \[Epsilon] \
+	of the Pauli rotation \!\(\*SuperscriptBox[\(e\), \(\(-i\[CurlyPhi]\)/2\\\ P\)]\) for the pauli matrix P which is specified by the string Pauli. \
+	The Pauli can be one of the fifteen strings \"XI\", \"YI\", \"ZI\", \"IX\", \"IY\", \"IZ\", \"XX\", \"YX\", \"ZX\", \"XY\", \"YY\", \"ZY\", \
+	\"XZ\", \"YZ\", or \"ZZ\". It then outputs a normalized sequence of Clifford + CS operators via NormIt. The options for the \"OutputType\" are \
 	\"String\" or \"HexDec\" and the options for the \"SyllableType\" are \"Normal\" or \"Asymmetric\".";
-PauliDecomposition::usage = "PauliDecomp[U] finds a list of 15 angle parameters \!\(\*SubscriptBox[\(\[CurlyPhi]\), \(j\)]\) which constitutee a 
-	decomposition of the form \!\(\*SubscriptBox[\(\[Product]\), \(1 \[LessEqual] j \[LessEqual] 15\)]\)\!\(\*SuperscriptBox[\(e\), 
-	\(\(-\*SubscriptBox[\(i\[CurlyPhi]\), \(j\)]\)/2\\\ \*SubscriptBox[\(P\), \(j\)]\)]\) for the U(4) (up to a phase) or SO(6) operator U. The sequence of operators for the 
-	Paulis \!\(\*SubscriptBox[\(P\), \(J\)]\) is (ZI,XI,ZI,IZ,IX,IZ,XX,YY,ZZ,ZI,XI,ZI,IZ,IX,IZ).";
-ApproximateOp::usage = "Approximate[U,\[Epsilon]] finds an approximation within Frobenius Distance \[Epsilon] of the unitary or SO(6) operator U in the Clifford + CS gate set. 
-	If U is an element of U(4), the result is a U(4) representation of a Clifford + CS circuit (up to a phase), and if U is an element of SO(6) the result is an SO(6) 
-	representation of a Clifford + CS circuit. Note that the Frobenius distance between U and its approximation is always calculated in the U(4) representation.";
-ApproximateSequence::usage = "ApproximateSequence[U,\[Epsilon],options] finds a normalized sequence of Clifford + CS operators which is within Frobenius Distance \[Epsilon] 
-	(in the Unitary representation and up to an irrelevant phase) for the input U. U may be either an element of U(4) or SO(6). The output is given as a 
-	string unless otherwise specified in the options. The options for the \"OutputType\" are \"String\" or \"HexDec\", the options for the 
+PauliDecomposition::usage = "PauliDecomp[U] finds a list of 15 angle parameters \!\(\*SubscriptBox[\(\[CurlyPhi]\), \(j\)]\) which constitutee a \
+	decomposition of the form \!\(\*SubscriptBox[\(\[Product]\), \(1 \[LessEqual] j \[LessEqual] 15\)]\)\!\(\*SuperscriptBox[\(e\), \
+	\(\(-\*SubscriptBox[\(i\[CurlyPhi]\), \(j\)]\)/2\\\ \*SubscriptBox[\(P\), \(j\)]\)]\) for the U(4) (up to a phase) or SO(6) operator U. The sequence of operators for \
+	the Paulis \!\(\*SubscriptBox[\(P\), \(J\)]\) is (ZI,XI,ZI,IZ,IX,IZ,XX,YY,ZZ,ZI,XI,ZI,IZ,IX,IZ).";
+ApproximateOp::usage = "Approximate[U,\[Epsilon]] finds an approximation within Frobenius Distance \[Epsilon] of the unitary or SO(6) operator U in the Clifford + CS gate set. \
+	If U is an element of U(4), the result is a U(4) representation of a Clifford + CS circuit (up to a phase), and if U is an element of SO(6) the result is an \
+	SO(6)  representation of a Clifford + CS circuit. Note that the Frobenius distance between U and its approximation is always calculated in the U(4) \
+	representation.";
+ApproximateSequence::usage = "ApproximateSequence[U,\[Epsilon],options] finds a normalized sequence of Clifford + CS operators which is within Frobenius Distance \[Epsilon] \
+	(in the Unitary representation and up to an irrelevant phase) for the input U. U may be either an element of U(4) or SO(6). The output is given as a \
+	string unless otherwise specified in the options. The options for the \"OutputType\" are \"String\" or \"HexDec\", the options for the \
 	\"SyllableType\" are \"Normal\" or \"Asymmetric\", and the options for \"IfGaussianDoExact\" are the booleans True and False.";
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Possible Errors*)
 
 
@@ -206,7 +208,7 @@ optsCheck @ head_[___, opts : OptionsPattern[]] :=
   And @@ optsMsg[head] @@@ FilterRules[{opts}, Options @ head];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Constants and Single-Qubit operators*)
 
 
@@ -222,7 +224,7 @@ x = PauliMatrix[1];
 z = PauliMatrix[3];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Unitary Representations of Two-qubit Clifford + CS operators*)
 
 
@@ -262,7 +264,7 @@ Z1 = KroneckerProduct[z,IdentityMatrix[2]];
 Z2 = KroneckerProduct[IdentityMatrix[2],z];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Checks For U(4) and SO(6)*)
 
 
@@ -274,7 +276,7 @@ U4Q[U_]:= UnitaryMatrixQ[U] && (Dimensions[U] == {4,4});
 SO6Q[O_] := OrthogonalMatrixQ[O] && (Dimensions[O] == {6,6}) && (Det[O] == 1);
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*The SU(4)\[TildeFullEqual]SO(6) Isomorphism*)
 
 
@@ -332,7 +334,7 @@ U4ToSO6[U_] := (
 );
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*SO(6) Representations of Two-qubit Clifford + CS operators*)
 
 
@@ -357,7 +359,7 @@ Z1SO6 = SU4ToSO6[Z1];
 Z2SO6 = SU4ToSO6[Z2];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Custom Representations of SO(6) Clifford + CS operators*)
 
 
@@ -378,8 +380,8 @@ Z2SO6 = SU4ToSO6[Z2];
 
 
 SO6ToSpecialRep[M_] := Module[{LDE,IntegerMat},
-	LDE = Max[Map[Simplify[Log[Sqrt[2],Denominator[#]]]&,Flatten[Simplify[M]]]];
-	IntegerMat = Simplify[(Sqrt[2]^LDE)*M];
+	LDE = FullSimplify[Max[Map[Simplify[Log[Sqrt[2],Denominator[#]]]&,Flatten[Simplify[M]]]]];
+	IntegerMat = FullSimplify[(Sqrt[2]^LDE)*M];
 	{LDE,SparseArray[IntegerMat]}
 ];
 SpecialRepToSO6[{k_,M_}] := Simplify[1/Sqrt[2]^k*Normal[M]];
@@ -441,7 +443,7 @@ MatrixRowPairs[list_] := GatherBy[
 RowPairs[x_] := Sort@MatrixRowPairs@PatternMats@x
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*String Reading*)
 
 
@@ -478,16 +480,16 @@ FromList[{str_}]:= (
 FromList[{h_,t__}] := FromList[{h}] . FromList[{t}];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Hexadecimal Representations*)
 
 
 (* ::Text:: *)
 (*We shall use strings of signed hexadecimal integers to represent Clifford + CS operators. This form is much more compact than, for example, the string form of an operator. The string must be of the following form:*)
 (**)
-(*\"(\[Epsilon] | -)(1-9 | a-f)* 00000 C\"*)
+(*\"( | -)(1-9 | a-f)* 00000 C\"*)
 (**)
-(*where C is the hexadecimal representation of an integer from 1 to 92160.*)
+(*where C is the hexadecimal representation of an integer from 1 to 92160 and the first option is simply an optional "-" character.*)
 
 
 ValidHexDecQ[num_String] := Module[{seperator,typenum,syllabletype,syllablescliffordok,split,syllables,clifford,syllablescharacterlist,syllablesok,cliffordcharacterlist,cliffordpossible,cliffordok},
@@ -551,7 +553,7 @@ FromHexDec[str_] := (
 );
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*The Two-Qubit Clifford Group*)
 
 
@@ -559,7 +561,7 @@ FromHexDec[str_] := (
 (*Here we develop some basic functions for the two-qubit Clifford group.*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Identifying if an operator is a Clifford and if two operators are Clifford-similar*)
 
 
@@ -771,7 +773,7 @@ CliffordSynthSp[{_,M_}] := Module[
 ];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*The Two-Qubit Clifford + CS Group*)
 
 
@@ -821,18 +823,18 @@ PrePostfixList = {
 	{H1.H2,H1SO6.H2SO6,"H1 H2 ","H2 H1 "},
 	{S1.H1.S2.H2,S1SO6.H1SO6.S2SO6.H2SO6,"S1 H1 S2 H2 ","H1 S1 S1 S1 H2 S2 S2 S2 "},
 	{Id,IdSO6,"",""},
-	{S1.H1,S1SO6.H1SO6,"S1 H1 ","H1 S1 S1 S1"},
+	{S1.H1,S1SO6.H1SO6,"S1 H1 ","H1 S1 S1 S1 "},
 	{S2.H2,S2SO6.H2SO6,"S2 H2 ","H2 S2 S2 S2 "},
 	{H2,H2SO6,"H2 ","H2 "},
 	{H1,H1SO6,"H1 ","H1 "},
-	{H1.S2.H2,H1SO6.S2SO6.H2SO6,"H1 S2 H2 ","H1 H2 S2 S2 S2"},
-	{S1.H1.H2,S1SO6.H1SO6.H2SO6,"S1 H1 H2 ","H1 S1 S1 S1 H2"},
-	{CNOT12.H1,CNOT12SO6.H1SO6,"H2 CZ H1 H2 ","H1 H2 CZ H2"},
-	{CZ.S1.H1.S2.H2,CZSO6.S1SO6.H1SO6.S2SO6.H2SO6,"CZ S1 H1 S2 H2 ","H1 S1 S1 S1 H2 S2 S2 S2 CZ"},
+	{H1.S2.H2,H1SO6.S2SO6.H2SO6,"H1 S2 H2 ","H1 H2 S2 S2 S2 "},
+	{S1.H1.H2,S1SO6.H1SO6.H2SO6,"S1 H1 H2 ","H1 S1 S1 S1 H2 "},
+	{CNOT12.H1,CNOT12SO6.H1SO6,"H2 CZ H1 H2 ","H1 H2 CZ H2 "},
+	{CZ.S1.H1.S2.H2,CZSO6.S1SO6.H1SO6.S2SO6.H2SO6,"CZ S1 H1 S2 H2 ","H1 S1 S1 S1 H2 S2 S2 S2 CZ "},
 	{CZ.H1.H2,CZSO6.H1SO6.H2SO6,"CZ H1 H2 ","H1 H2 CZ "},
-	{CNOT12.S1.H1,CNOT12SO6.S1SO6.H1SO6,"H2 CZ S1 H1 H2 ","H1 S1 S1 S1 H2 CZ H2"},
-	{CZ.S1.H1.H2,CZSO6.S1SO6.H1SO6.H2SO6,"CZ S1 H1 H2 ","H1 S1 S1 S1 H2 CZ"},
-	{CZ.H1.S2.H2,CZSO6.H1SO6.S2SO6.H2SO6,"CZ H1 S2 H2 ","H1 H2 S2 S2 S2 CZ"}
+	{CNOT12.S1.H1,CNOT12SO6.S1SO6.H1SO6,"H2 CZ S1 H1 H2 ","H1 S1 S1 S1 H2 CZ H2 "},
+	{CZ.S1.H1.H2,CZSO6.S1SO6.H1SO6.H2SO6,"CZ S1 H1 H2 ","H1 S1 S1 S1 H2 CZ "},
+	{CZ.H1.S2.H2,CZSO6.H1SO6.S2SO6.H2SO6,"CZ H1 S2 H2 ","H1 H2 S2 S2 S2 CZ "}
 };
 
 SyllableList = Map[
@@ -859,7 +861,7 @@ SyllableListAsymmetricSp = MapIndexed[
 ];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Normalization*)
 
 
@@ -867,7 +869,7 @@ SyllableListAsymmetricSp = MapIndexed[
 (*In this section we develop a function for normalizing a circuit in any of our representations. This algorithm is described in detail in [2].*)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Earliest Generator Ordering and associated row pairings*)
 
 
@@ -902,7 +904,7 @@ SyllableListPairings = Map[
 PairingKey = Association @@ SyllableListPairings;
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Finding a leftmost syllable and normalizing in the Special representation*)
 
 
@@ -947,7 +949,7 @@ NormItSp[U_,OptionsPattern[]]?optsCheck := Module[{type},
 ];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Normalizing from a string, a hexadecimal, U(4), or SO(6).*)
 
 
@@ -1032,7 +1034,7 @@ NextIterate[{aN_,rN_,pN_,qN_,pNm1_,qNm1_}] := Module[{aNp1},
 ContinuedFractionToPrecision[\[Alpha]_,tol_] := Module[{a0,iterate},
 	a0 = IntegerPart[\[Alpha]];
 	iterate = NestWhile[NextIterate,{a0,N[\[Alpha] - a0,2*Log10[1/tol]],a0,1,1,0},#[[4]] <= 1/tol && #[[2]] != 0&];
-	If[iterate[[2]] == 0,
+	If[iterate[[2]] == 0 && iterate[[4]] <= 1/tol,
 		iterate[[3;;4]],
 		iterate[[5;;6]]
 	]
@@ -1170,6 +1172,94 @@ CandidateFinderBounded[\[CurlyPhi]_,\[Epsilon]_] := Module[{root2k,c,s,\[Alpha],
 			];];
 	];
 	valid
+];
+
+CandidateFinderBoundedNewApproach[\[CurlyPhi]_,\[Epsilon]_] := Module[{c,s,\[Alpha],p,\[CapitalDelta],\[Delta],A,v,invA,p\[Prime],\[CapitalDelta]\[Prime],\[Delta]\[Prime],v\[Prime],mInv,xL,xR,xB,xMin,xMax,yMin,yMax,kMax,k0,dx,dy,root2k,round,x0,x1,y0,y1,x0Int,x1Int,x2Int,y0Int,y1Int,y,vec},
+	Catch[
+		If[\[Epsilon] >= 2*Sqrt[2],Throw[{0,{1,0}}]];
+		c = Cos[\[CurlyPhi]/2];
+		s = Sin[\[CurlyPhi]/2];
+		\[Alpha] = 1-\[Epsilon]^2/8;
+		p = {c*\[Alpha]+s*Sqrt[1-\[Alpha]^2],s*\[Alpha]-c*Sqrt[1-\[Alpha]^2]};
+		\[CapitalDelta] = 2*Sqrt[1-\[Alpha]^2]*{-s,c};
+		\[Delta] = \[Epsilon]^2/8*{c,s};
+		A = AffineMatrix[\[CurlyPhi],\[Epsilon]];
+		v = Normalize[A[[1]]];
+		invA = Inverse[A];
+		p\[Prime] = A.p;
+		\[CapitalDelta]\[Prime] = A.\[CapitalDelta];
+		\[Delta]\[Prime] = A.\[Delta];
+		v\[Prime] = A.v;
+		mInv = \[CapitalDelta]\[Prime][[1]] / \[CapitalDelta]\[Prime][[2]];
+		{xL,xR} = If[\[CapitalDelta]\[Prime][[1]] <= 0,
+			{\[CapitalDelta]\[Prime] + p\[Prime],p\[Prime]},
+			{p\[Prime],\[CapitalDelta]\[Prime] + p\[Prime]}
+		];
+		xB = If[(\[CurlyPhi]/2 - ArcCos[\[Alpha]]) < (ArcTan @@ v) < (\[CurlyPhi]/2 + ArcCos[\[Alpha]]),
+			v\[Prime],
+			xR
+		];
+		{xMin,xMax} = {xL[[1]],xR[[1]] + \[Delta]\[Prime][[1]]};
+		{yMin,yMax} = If[\[CapitalDelta]\[Prime][[1]] <= 0,{xR[[2]],xL[[2]]},{xL[[2]],xR[[2]]}] + If[\[Delta]\[Prime][[2]]>0,{0,\[Delta]\[Prime][[2]]},{\[Delta]\[Prime][[2]],0}];
+		kMax = Ceiling[4*Log2[1/\[Epsilon]]+6];
+		k0 = Catch[Do[
+			dx = Floor[xMax] - Ceiling[xMin] + 1;
+			dy = Floor[yMax] - Ceiling[yMin] + 1;
+			If[dx * dy > 0,Throw[k]];
+			{xMin,xMax,yMin,yMax} *= Sqrt[2];,
+			{k,0,kMax}
+		]];
+		root2k = Sqrt[2]^k0;
+		round = If[\[CapitalDelta]\[Prime][[1]] <= 0,Ceiling,Floor];
+		
+		If[
+			xB[[1]] > xR[[1]],
+				If[mInv == 0,
+					{x0,y0} = root2k * {xR[[1]],xB[[2]]};
+					Do[
+						{x0Int,y0Int} = {Ceiling[x0],Floor[y0]};
+						Do[
+							vec = invA.{x0Int,y};
+							If[Norm[vec] <= root2k,Throw[{k,vec}]];,
+							{y,y0Int,y0Int+1}
+						];
+						{root2k,x0,y0} *= Sqrt[2];,
+						{k,k0,kMax}
+					];,
+					{x0,y0,x1,y1} = root2k * {xL[[1]],xL[[2]],xR[[1]],xB[[2]]};
+					Do[
+						{x0Int,x1Int} = {Ceiling[x0],Floor[x1]};
+						Do[
+							y = round[(x - x0)/mInv + y0];
+							vec = invA.{x,y};
+							If[Norm[vec] <= root2k,Throw[{k,vec}]];,
+							{x,x0Int,x1Int}
+						];
+						x2Int = x1Int + 1;
+						y1Int = Floor[y1];
+						Do[
+							vec = invA.{x2Int,y};
+							If[Norm[vec] <= root2k,Throw[{k,vec}]];,
+							{y,y1Int,y1Int+1}
+						];
+						{root2k,x0,y0,x1,y1} *= Sqrt[2];,
+						{k,k0,kMax}
+					];
+				];,
+				{x0,y0,x1} = root2k * {xL[[1]],xL[[2]],xR[[1]]};
+				Do[
+					{x0Int,x1Int} = {Ceiling[x0],Floor[x1]};
+					Do[
+						y = round[(x - x0)/mInv + y0];
+						vec = invA.{x,y};
+						If[Norm[vec] <= root2k,Throw[{k,vec}]];,
+						{x,x0Int,x1Int}
+					];
+					{root2k,x0,y0,x1} *= Sqrt[2];,
+					{k,k0,kMax}
+				];
+		];
+	]
 ];
 
 
@@ -1364,7 +1454,7 @@ End[];
 Protect[Id,X1,X2,Z1,Z2,W,H1,H2,S1,S2,CZ,CNOT12,CNOT21,EX,CS,U4ToSO6,
 	IdSO6,X1SO6,X2SO6,Z1SO6,Z2SO6,\[CapitalIota]SO6,H1SO6,H2SO6,S1SO6,S2SO6,CZSO6,CNOT12SO6,CNOT21SO6,EXSO6,CSSO6,
 	FromSequence,FromHexDec,CliffordQ,CliffordSynth,RightCliffordSimilar,LeftCliffordSimilar,GaussianQ,SyllableList,SyllableListAsymmetric,NormIt,FrobeniusDistance,
-	CandidateFinder,PauliRotation,PauliDecomposition,ApproximateOp,ApproximateSequence];
+	CandidateFinder,PauliRotation,PauliRotationSequence,PauliDecomposition,ApproximateOp,ApproximateSequence];
 
 
 EndPackage[];
