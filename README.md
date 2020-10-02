@@ -37,11 +37,11 @@ None
 
 
 ## Installation Instructions:
-Install the file GaussSynth.m wherever you would like. To make things simplest, save to somewhere in your current Mathematica $Path or your working directory.
+Install the file GaussSynth.wl wherever you would like. To make things simplest, save to somewhere in your current Mathematica $Path or your working directory.
 
 
 ## Loading Instructions:
-Make sure that GaussSynth.m is saved to somewhere on your current Mathematica $Path or in your current working directory. If it is not, either add that location to the $Path (see https://reference.wolfram.com/language/ref/$Path.html) or set your current directory to the one which includes GaussSynth.m with SetDirectory (see https://reference.wolfram.com/language/ref/SetDirectory.html).
+Make sure that GaussSynth.wl is saved to somewhere on your current Mathematica $Path or in your current working directory. If it is not, either add that location to the $Path (see https://reference.wolfram.com/language/ref/$Path.html) or set your current directory to the one which includes GaussSynth.wl with SetDirectory (see https://reference.wolfram.com/language/ref/SetDirectory.html).
 
 Once this is done, use the following command to load the package:
 
