@@ -3,7 +3,7 @@ Synthesis Package for two-qubit Super-Gaussian Clifford + T matrices, i.e. the t
 
 ## Package Info
 
-Package Version: 1.0
+Package Version: 1.1
 
 
 Written for Mathematica Version: 12.0
@@ -11,7 +11,7 @@ Written for Mathematica Version: 12.0
 
 History:
 1.0 - Initial version, completed 11/4/2019
-
+1.1 - Added further functionality to the code, 10/2/2020
 
 Keywords: Quantum Compiling, Quantum Circuit Synthesis, Clifford Group, Controlled Phase Gate, Normal Forms, Exact Synthesis, Approximate Synthesis
 
