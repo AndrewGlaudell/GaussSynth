@@ -10,8 +10,8 @@ Written for Mathematica Version: 12.0
 
 
 History:
-1.0 - Initial version, completed 11/4/2019
-1.1 - Added further functionality to the code, 10/2/2020
+- 1.0 - Initial version, completed 11/4/2019
+- 1.1 - Added further functionality to the code, 10/2/2020
 
 Keywords: Quantum Compiling, Quantum Circuit Synthesis, Clifford Group, Controlled Phase Gate, Normal Forms, Exact Synthesis, Approximate Synthesis
 
@@ -57,51 +57,28 @@ NormIt::usage
 would list the use cases of the pre-defined NormIt function, as well as any options. Here is a list of the exported variables and functions:
 
 - Id,X1,X2,Z1,Z2,W,H1,H2,S1,S2,CZ,CNOT12,CNOT21,EX,CS: Gates in U(4) representation
-
 - R["P","Q"]: R[P,Q] gates in U(4) representation
-
 - U4ToSO6: Map from U(4) to SO(6)
-
 - IdSO6,X1SO6,X2SO6,Z1SO6,Z2SO6,\[CapitalIota]SO6,H1SO6,H2SO6,S1SO6,S2SO6,CZSO6,CNOT12SO6,CNOT21SO6,EXSO6,CSSO6: Gates in SO(6) representation
-
 - RSO6["P","Q"]: R[P,Q] gates in SO(6) representation
-
 - FromSequence: Read in string of operators as a U(4) matrix
-
 - FromHexDec: ead in a Hexidecimal representation of a Clifford CS operator as a U(4) matrix
-
 - CliffordQ: Check if an operator is a Clifford
-
 - CliffordSynth: Find a Clifford circuit (in HexDec and String forms) for a Clifford operator
-
 - RightCliffordSimilar, LeftCliffordSimilar: Check if two operators are right/left Clifford-similar
-
 - GaussianQ: Check if an operator is a Clifford + CS operator
-
 - LDE: Find the Least Denominator Exponent in either the U(4) or SO(6) representations
-
 - OptimalCSCount: Find the optimal number of CS gates required to synthesize an operator in any representation
-
 - SyllableList: List of canonical R[P,Q] Syllables for a normal form
-
 - SyllableListAsymmetric: List of constructors for Clifford + CS for an alternative normal form using the usual generators
-
 - NormIt: Find the normal form for a Clifford + CS operator
-
 - FrobeniusDistance: Calculate the Frobenius distance between two matrices
-
 - CandidateFinder: Find a two integer-component vector (a,b) and integer k such that 1/sqrt(2)^k (a,b) is close to some complex phase
-
 - PauliRotation: Find a Clifford + CS operator which approximates a pauli-rotation on two qubits
-
 - PauliRotationSequence: Find the corresponding normal-form sequence of a Clifford + CS operator which approximates a pauli-rotation
-
 - PauliDecomposition: Find the Pauli rotation decomposition of a two-qubit unitary operator
-
 - ApproximateOp: Find a Clifford + CS operator which approximates some operator on two qubits
-
 - ApproximateSequence: Find the corresponding normal-form sequence of a Clifford + CS operator which approximates some operator on two qubits
-
 - RandomCliffCS: Pseudorandomly sample from the uniform distribution of all Clifford + CS operators whose optimal CS-count is at-most some integer n.
 
 ## Copyright Info:
