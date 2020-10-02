@@ -17,7 +17,7 @@ Keywords: Quantum Compiling, Quantum Circuit Synthesis, Clifford Group, Controll
 
 
 ## Description:
-The GaussSynth.m package is a package for quantum compiling on two qubits using the Clifford group and the Controlled-Phase gate CS. The circuits which are exactly expressible over this gate set constitute every 4x4 unitary matrix which can be written as a matrix of Gaussian integers divided by some non-negative integer power of 2^(1/2) -- hence the package name. In this package, we supply a number of functions for performing quantum circuit synthesis on this gate set, both in the exact and approximate case. The algorithms in this package are based off of the work of Andrew Glaudell, Julien Ross, Matthew Amy, and Jake Taylor, and for details related to how these algorithms were developed, I suggest reading the articles [1-3] in the sources section below.
+The GaussSynth.wl package is a package for quantum compiling on two qubits using the Clifford group and the Controlled-Phase gate CS. The circuits which are exactly expressible over this gate set constitute every 4x4 unitary matrix which can be written as a matrix of Gaussian integers divided by some non-negative integer power of 2^(1/2) -- hence the package name. In this package, we supply a number of functions for performing quantum circuit synthesis on this gate set, both in the exact and approximate case. The algorithms in this package are based off of the work of Andrew Glaudell, Julien Ross, Matthew Amy, and Jake Taylor, and for details related to how these algorithms were developed, I suggest reading the articles [1-3] in the sources section below.
 
 
 ## Warnings:
