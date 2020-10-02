@@ -56,41 +56,53 @@ NormIt::usage
 
 would list the use cases of the pre-defined NormIt function, as well as any options. Here is a list of the exported variables and functions:
 
-Gates in U(4) representation: Id,X1,X2,Z1,Z2,W,H1,H2,S1,S2,CZ,CNOT12,CNOT21,EX,CS
+Id,X1,X2,Z1,Z2,W,H1,H2,S1,S2,CZ,CNOT12,CNOT21,EX,CS: Gates in U(4) representation
 
-Map from U(4) to SO(6): U4ToSO6
+R["P","Q"]: R[P,Q] gates in U(4) representation
 
-Gates in SO(6) representation: IdSO6,X1SO6,X2SO6,Z1SO6,Z2SO6,\[CapitalIota]SO6,H1SO6,H2SO6,S1SO6,S2SO6,CZSO6,CNOT12SO6,CNOT21SO6,EXSO6,CSSO6
+U4ToSO6: Map from U(4) to SO(6)
 
-Read in string of operators as a U(4) matrix: FromSequence
+IdSO6,X1SO6,X2SO6,Z1SO6,Z2SO6,\[CapitalIota]SO6,H1SO6,H2SO6,S1SO6,S2SO6,CZSO6,CNOT12SO6,CNOT21SO6,EXSO6,CSSO6: Gates in SO(6) representation
 
-Read in a Hexidecimal representation of a Clifford CS operator as a U(4) matrix: FromHexDec
+RSO6["P","Q"]: R[P,Q] gates in SO(6) representation
 
-Check if an operator is a Clifford: CliffordQ
+FromSequence: Read in string of operators as a U(4) matrix
 
-Find a Clifford circuit (in HexDec and String forms) for a Clifford operator: CliffordSynth
+FromHexDec: ead in a Hexidecimal representation of a Clifford CS operator as a U(4) matrix
 
-Check if two operators are right/left Clifford-similar: RightCliffordSimilar,LeftCliffordSimilar
+CliffordQ: Check if an operator is a Clifford
 
-Check if an operator is a Clifford + CS operator: GaussianQ
+CliffordSynth: Find a Clifford circuit (in HexDec and String forms) for a Clifford operator
 
-List of Syllables for a normal form: SyllableList,SyllableListAsymmetric
+RightCliffordSimilar, LeftCliffordSimilar: Check if two operators are right/left Clifford-similar
 
-Find the normal form for a Clifford + CS operator: NormIt
+GaussianQ: Check if an operator is a Clifford + CS operator
 
-Calculate the Frobenius distance between two matrices: FrobeniusDistance
+LDE: Find the Least Denominator Exponent in either the U(4) or SO(6) representations
 
-Find a two integer-component vector (a,b) and integer k such that 1/sqrt(2)^k (a,b) is close to some complex phase: CandidateFinder
+OptimalCSCount: Find the optimal number of CS gates required to synthesize an operator in any representation
 
-Find a Clifford + CS operator which approximates a pauli-rotation on two qubits: PauliRotation
+SyllableList: List of canonical R[P,Q] Syllables for a normal form
 
-Find the corresponding normal-form sequence of a Clifford + CS operator which approximates a pauli-rotation: PauliRotationSequence
+SyllableListAsymmetric: List of constructors for Clifford + CS for an alternative normal form using the usual generators
 
-Find the Pauli rotation decomposition of a two-qubit unitary operator: PauliDecomposition
+NormIt: Find the normal form for a Clifford + CS operator
 
-Find a Clifford + CS operator which approximates some operator on two qubits: ApproximateOp
+FrobeniusDistance: Calculate the Frobenius distance between two matrices
 
-Find the corresponding normal-form sequence of a Clifford + CS operator which approximates some operator on two qubits: ApproximateSequence
+CandidateFinder: Find a two integer-component vector (a,b) and integer k such that 1/sqrt(2)^k (a,b) is close to some complex phase
+
+PauliRotation: Find a Clifford + CS operator which approximates a pauli-rotation on two qubits
+
+PauliRotationSequence: Find the corresponding normal-form sequence of a Clifford + CS operator which approximates a pauli-rotation
+
+PauliDecomposition: Find the Pauli rotation decomposition of a two-qubit unitary operator
+
+ApproximateOp: Find a Clifford + CS operator which approximates some operator on two qubits
+
+ApproximateSequence: Find the corresponding normal-form sequence of a Clifford + CS operator which approximates some operator on two qubits
+
+RandomCliffCS: Pseudorandomly sample from the uniform distribution of all Clifford + CS operators whose optimal CS-count is at-most some integer n.
 
 ## Copyright Info:
 Copyright © 2019 Andrew Glaudell
