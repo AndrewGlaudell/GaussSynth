@@ -45,7 +45,7 @@ Make sure that GaussSynth.wl is saved to somewhere on your current Mathematica $
 
 Once this is done, use the following command to load the package:
 
-Needs["GaussSynth`"];
+Needs["GaussSynth_v1_1`"];
 
 
 ## Usage Instructions:
