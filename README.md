@@ -1,5 +1,5 @@
 # GaussSynth
-Synthesis Package for two-qubit Gaussian Clifford + T matrices, i.e. the two-qubit Clifford + CS gate group
+Synthesis Package for two-qubit Super-Gaussian Clifford + T matrices, i.e. the two-qubit Clifford + CS gate group
 
 ## Package Info
 
